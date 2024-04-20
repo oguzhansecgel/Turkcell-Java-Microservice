@@ -5,7 +5,7 @@ spring:
     config:
       server:
         git:
-          uri: https://github.com/halitkalayci/turkcellms-configurations
-          #uri: file://C:\Users\klyyc\Desktop\Projects\Java\turkcell.java3.ms\config
+          uri: https://github.com/oguzhansecgel/turkcell-ms-config-pair6
+
 server:
   port: 8079

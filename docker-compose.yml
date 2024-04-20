@@ -9,16 +9,32 @@ services:
   product-service:
     build : ./productservice
     ports :
-      - "8083:8082"
-
+      - "8082:8082"
+    restart: on-failure
+    environment:
+      - SPRING_CLOUD_CONFIG_PROFILE=prod
+      - CONFIGURL=http://config-server:8079
+  order-service:
+    build: ./orderservice
+    restart: on-failure
+    ports:
+      - "8081:8081"
+    environment:
+      - SPRING_CLOUD_CONFIG_PROFILE=prod
+      - CONFIGURL=http://config-server:8079
+    networks:
+      - common
   postgres:
     image : postgres
     ports :
-      - "5433:5432"
+      - "5432:5432"
     environment:
       - POSTGRES_PASSWORD=test
     volumes:
       - postgresql-volume:/var/lib/postgresql/data
+
+
+
 
   config-server:
     build: ./configserver
@@ -26,12 +42,21 @@ services:
       - "8079:8079"
     networks:
       - common
+
+
   discovery-server:
     build: ./discoveryserver
     ports:
-      - "8889:8888"
+      - "8888:8888"
+    restart: on-failure
+    environment:
+      - SPRING_CLOUD_CONFIG_PROFILE=prod
+      - CONFIGURL=http://config-server:8079
     networks:
     - common
+
+
+
   gateway-server:
     build: ./gatewayserver
     ports:
@@ -39,13 +64,12 @@ services:
     restart: on-failure # her hata aldığında restart et
   # restart : unless-stopped kullanıcı dışında konteyner durdu ise  restart et
   # alway kullanıcı dahil herhangi bir şekilde durdu ise
-
     depends_on:
       - discovery-server
       - config-server
     environment:
       - SPRING_CLOUD_CONFIG_PROFILE=prod
-      - CONFIGURL=http://localhost:8079
+      - CONFIGURL=http://config-server:8079
     networks:
       - common
 
