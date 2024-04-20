@@ -6,6 +6,10 @@ services:
     environment:
       - MONGO_INITDB_ROOT_USERNAME=root
       - MONGO_INITDB_ROOT_PASSWORD=root
+  product-service:
+    build : ./productservice
+    ports :
+      - "8083:8082"
 
   postgres:
     image : postgres
@@ -15,18 +19,35 @@ services:
       - POSTGRES_PASSWORD=test
     volumes:
       - postgresql-volume:/var/lib/postgresql/data
+
+  config-server:
+    build: ./configserver
+    ports:
+      - "8079:8079"
+    networks:
+      - common
   discovery-server:
     build: ./discoveryserver
     ports:
-      - "8888:8888"
+      - "8889:8888"
+    networks:
+    - common
   gateway-server:
     build: ./gatewayserver
     ports:
       - "8080:8080"
+    restart: on-failure # her hata aldığında restart et
+  # restart : unless-stopped kullanıcı dışında konteyner durdu ise  restart et
+  # alway kullanıcı dahil herhangi bir şekilde durdu ise
+
     depends_on:
       - discovery-server
+      - config-server
     environment:
-      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://discovery-server:8888/eureka/
+      - SPRING_CLOUD_CONFIG_PROFILE=prod
+      - CONFIGURL=http://localhost:8079
+    networks:
+      - common
 
 
 
@@ -37,3 +58,8 @@ volumes:
     name: postgresql-volume #klasör ismi
   mongodb-volume:
     name: mongodb-volume
+
+
+networks:
+  common:
+    driver: bridge
