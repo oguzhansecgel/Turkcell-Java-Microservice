@@ -10,10 +10,12 @@ services:
     build : ./productservice
     ports :
       - "8082:8082"
-    restart: on-failure
+    restart: on-failure # hata aldığında çalışana kadar rest
     environment:
       - SPRING_CLOUD_CONFIG_PROFILE=prod
       - CONFIGURL=http://config-server:8079
+    networks:
+      - common
   order-service:
     build: ./orderservice
     restart: on-failure

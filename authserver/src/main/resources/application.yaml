@@ -1,6 +1,6 @@
 spring:
   application:
-    name: productservice
+    name: authserver
   cloud:
     config:
       profile: local

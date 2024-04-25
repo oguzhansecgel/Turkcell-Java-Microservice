@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 @FeignClient(name = "productservice")
 public interface ProductServiceClient
 {
-    @GetMapping("/api/v1/products")
+    @GetMapping("api/v1/products") // product controller @Request mapping name i tam yazılmalıdır.
     int getStockByProductId(@RequestParam int productId);
 
 
