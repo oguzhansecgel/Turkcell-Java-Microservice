@@ -5,6 +5,7 @@ import com.turkcell.authserver.service.abstracts.AuthService;
 import com.turkcell.authserver.service.abstracts.UserService;
 import com.turkcell.authserver.service.dtos.request.LoginRequest;
 import com.turkcell.authserver.service.dtos.request.RegisterRequest;
+import com.turkcell.authserver.service.mapper.AuthMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -18,15 +19,18 @@ public class AuthServiceImpl implements AuthService {
     private final PasswordEncoder passwordEncoder;
     private final UserService userService;
     private final AuthenticationManager authenticationManager;
+
     @Override
     public void register(RegisterRequest request) {
-        User user = new User();
+        /*User user = new User();
         user.setEmail(request.getEmail());
         user.setFirstName(request.getFirstName());
         user.setLastName(request.getLastName());
-        user.setPassword(request.getPassword());
+        user.setPassword(passwordEncoder.encode(request.getPassword()));*/
         // hasssas bilgiler veri tabanına plain text olarak kayıt edilmez
-
+        User user = AuthMapper.INSTANCE.userFromRequest(request);
+        user.setPassword(passwordEncoder.encode(request.getPassword()));
+        userService.add(user);
     }
 
     @Override
