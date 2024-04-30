@@ -2,10 +2,7 @@ package com.turkcell.orderservice.Controllers;
 
 import com.turkcell.orderservice.clients.ProductServiceClient;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.reactive.function.client.WebClient;
 
 @RestController
@@ -14,6 +11,7 @@ import org.springframework.web.reactive.function.client.WebClient;
 public class OrdersController {
 
    private final ProductServiceClient productServiceClient;
+
     @PostMapping
     public String addOrder(@RequestParam int productId)
     {
@@ -38,5 +36,10 @@ public class OrdersController {
         if(stockResult<=0)
             throw new RuntimeException("Ürün Stokta Yok");
         return "Sipariş Eklendi";
+    }
+    @GetMapping
+    public String getMapping()
+    {
+        return "Merhaba ben gateway üzerinden geliyorum";
     }
 }
