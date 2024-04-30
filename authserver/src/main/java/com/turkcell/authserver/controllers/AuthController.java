@@ -1,13 +1,13 @@
 package com.turkcell.authserver.controllers;
 
+import com.turkcell.authserver.entities.User;
 import com.turkcell.authserver.service.abstracts.AuthService;
+import com.turkcell.authserver.service.abstracts.UserService;
 import com.turkcell.authserver.service.dtos.request.LoginRequest;
 import com.turkcell.authserver.service.dtos.request.RegisterRequest;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/v1/auth")
@@ -21,8 +21,10 @@ public class AuthController {
     }
 
     @PostMapping("/login")
+    @ResponseStatus(HttpStatus.OK)
     public String login(@RequestBody LoginRequest request)
     {
         return authService.login(request);
     }
+
 }

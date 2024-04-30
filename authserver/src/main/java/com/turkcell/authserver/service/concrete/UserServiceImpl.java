@@ -24,4 +24,6 @@ public class UserServiceImpl implements UserService {
         // Spring Security
         return userRepository.findByEmail(username).orElseThrow(() -> new BadCredentialsException(""));
     }
+
+
 }

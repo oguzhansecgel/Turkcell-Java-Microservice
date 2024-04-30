@@ -29,6 +29,7 @@ public class SecurityConfiguration {
             "/v2/api-docs",
             "/v3/api-docs",
             "/v3/api-docs/**",
+            "/swagger-ui/index.html/**"
     };
 
     @Bean
@@ -42,7 +43,6 @@ public class SecurityConfiguration {
                  .authorizeHttpRequests((req)->
                           req
                                   .requestMatchers(WHITE_LIST).permitAll()
-                                  .requestMatchers("/api/v1/admin").hasAnyAuthority("admin")
                                   .requestMatchers(HttpMethod.POST, "/api/v1/test/**").hasAnyAuthority("Test.Add")
                                   .requestMatchers(HttpMethod.PUT, "/api/v1/test/**").hasAnyAuthority("Test.Update")
                                   .requestMatchers(HttpMethod.DELETE, "/api/v1/test/**").hasAnyAuthority("Test.Delete")
