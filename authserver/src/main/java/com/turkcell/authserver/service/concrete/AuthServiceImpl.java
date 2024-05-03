@@ -1,13 +1,13 @@
 package com.turkcell.authserver.service.concrete;
 
 import com.turkcell.authserver.core.exception.type.UnauthorizedException;
-import com.turkcell.authserver.core.services.JwtService;
 import com.turkcell.authserver.entities.User;
 import com.turkcell.authserver.service.abstracts.AuthService;
 import com.turkcell.authserver.service.abstracts.UserService;
 import com.turkcell.authserver.service.dtos.request.LoginRequest;
 import com.turkcell.authserver.service.dtos.request.RegisterRequest;
 import com.turkcell.authserver.service.mapper.AuthMapper;
+import com.turkcell.tcell.core.security.BaseJwtService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -27,7 +27,7 @@ public class AuthServiceImpl implements AuthService {
     private final PasswordEncoder passwordEncoder;
     private final UserService userService;
     private final AuthenticationManager authenticationManager;
-    private final JwtService jwtService;
+    private final BaseJwtService jwtService;
 
     @Override
     public void register(RegisterRequest request) {
@@ -35,6 +35,8 @@ public class AuthServiceImpl implements AuthService {
         User user = AuthMapper.INSTANCE.userFromRequest(request);
         user.setPassword(passwordEncoder.encode(request.getPassword()));
         userService.add(user);
+
+
     }
 
     @Override

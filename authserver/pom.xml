@@ -82,26 +82,19 @@
 			<scope>test</scope>
 		</dependency>
 
-		<!-- 3 dependency jwt dependencysisi -->
-		<dependency>
-			<groupId>io.jsonwebtoken</groupId>
-			<artifactId>jjwt-api</artifactId>
-			<version>0.12.5</version>
-		</dependency>
-		<dependency>
-			<groupId>io.jsonwebtoken</groupId>
-			<artifactId>jjwt-impl</artifactId>
-			<version>0.12.5</version>
-		</dependency>
-		<dependency>
-			<groupId>io.jsonwebtoken</groupId>
-			<artifactId>jjwt-jackson</artifactId>
-			<version>0.12.5</version>
-		</dependency>
+
         <dependency>
             <groupId>org.hibernate.validator</groupId>
             <artifactId>hibernate-validator</artifactId>
         </dependency>
+		<dependency>
+			<groupId>com.turkcell</groupId>
+			<artifactId>tcell.core</artifactId>
+			<version>2.0.2</version>
+		</dependency>
+
+
+
     </dependencies>
 	<dependencyManagement>
 		<dependencies>

@@ -1,8 +1,7 @@
 package com.turkcell.authserver.core.configuration;
 
-import com.turkcell.authserver.core.filters.JwtFilter;
 import com.turkcell.authserver.service.abstracts.UserService;
-import io.swagger.v3.oas.models.PathItem;
+import com.turkcell.tcell.core.security.BaseJwtFilter;
 import jakarta.ws.rs.HttpMethod;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -22,7 +21,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @RequiredArgsConstructor
 public class SecurityConfiguration {
     private final UserService userService;
-    private final JwtFilter jwtFilter;
+    private final BaseJwtFilter jwtFilter;
     private static final String[] WHITE_LIST = {
             "/api/v1/auth/**",
             "/swagger-ui/**",

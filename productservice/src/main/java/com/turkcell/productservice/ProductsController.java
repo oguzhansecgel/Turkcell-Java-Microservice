@@ -18,4 +18,12 @@ public class ProductsController {
     {
         return id;
     }
+
+
+    @GetMapping("test")
+    public String get()
+    {
+        return "";
+    }
+
 }
