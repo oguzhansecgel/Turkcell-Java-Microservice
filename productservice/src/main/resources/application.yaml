@@ -6,5 +6,17 @@ spring:
       profile: local
   config:
     import: "configserver:${configurl}"
+  kafka:
+    bootstrap-server: localhost:9092
+    consumer:
+      group-id: productservice
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      properties:
+        spring:
+          json:
+            trusted:
+              packages: org.turkcell.common.events
+
 
 configurl: http://localhost:8079
